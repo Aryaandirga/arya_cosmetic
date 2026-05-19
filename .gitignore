@@ -22,6 +22,7 @@
 
 # misc
 .DS_Store
+Thumbs.db
 *.pem
 
 # debug
@@ -30,12 +31,24 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# Environment files
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
 
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
+
+# Next.js
 next-env.d.ts
+.next/
+out/
+
+# Editor
+.vscode/
+.idea/
