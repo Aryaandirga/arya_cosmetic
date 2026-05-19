@@ -257,15 +257,9 @@ export function ShopModal({ isOpen, onClose }: ShopModalProps) {
                   overscrollBehavior: "contain",
                 }}
               >
-                <div style={{ padding: "2rem 2.5rem 2.5rem" }}>
+                <div style={{ padding: "1.5rem 1.5rem 2rem" }} className="modal-body-pad">
                   {/* Product grid */}
-                  <div
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "repeat(3, 1fr)",
-                      gap: "1.25rem",
-                    }}
-                  >
+                  <div className="shop-product-grid">
                     {products.map((product, i) => (
                       <motion.div
                         key={product.id}

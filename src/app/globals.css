@@ -134,3 +134,26 @@ body.modal-open {
 .modal-scroll:not(:hover)::-webkit-scrollbar-thumb {
   background: transparent;
 }
+
+/* ── ShopModal responsive grid ── */
+.shop-product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .shop-product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .modal-body-pad {
+    padding: 1.25rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .shop-product-grid {
+    grid-template-columns: 1fr;
+  }
+}

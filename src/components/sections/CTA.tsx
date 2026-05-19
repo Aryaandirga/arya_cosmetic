@@ -126,7 +126,7 @@ export function CTA() {
             zIndex: 10,
             maxWidth: "700px",
             margin: "0 auto",
-            padding: "0 2rem",
+            padding: "0 1.5rem",
             textAlign: "center",
           }}
           variants={containerVariants}
@@ -252,27 +252,24 @@ export function CTA() {
               display: "flex",
               justifyContent: "center",
               flexWrap: "wrap",
-              gap: "2.5rem",
+              gap: "2rem",
             }}
           >
-            {[
-              "★★★★★ 4.9/5",
-              "500K+ Users",
-              "12 Countries",
-              "Lab Certified",
-            ].map((badge) => (
-              <span
-                key={badge}
-                style={{
-                  fontSize: "0.7rem",
-                  letterSpacing: "0.2em",
-                  color: "#94a3b8",
-                  textTransform: "uppercase",
-                }}
-              >
-                {badge}
-              </span>
-            ))}
+            {["★★★★★ 4.9/5", "500K+ Users", "12 Countries", "Lab Certified"].map(
+              (badge) => (
+                <span
+                  key={badge}
+                  style={{
+                    fontSize: "0.7rem",
+                    letterSpacing: "0.2em",
+                    color: "#94a3b8",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {badge}
+                </span>
+              ),
+            )}
           </motion.div>
         </motion.div>
       </section>
@@ -285,17 +282,8 @@ export function CTA() {
           background: "var(--brand-neutral)",
         }}
       >
-        <div
-          style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 2rem" }}
-        >
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1.5fr 1fr 1fr 1fr",
-              gap: "3rem",
-              marginBottom: "4rem",
-            }}
-          >
+        <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 1.5rem" }}>
+          <div className="footer-grid">
             {/* Brand */}
             <div>
               <p
@@ -359,12 +347,8 @@ export function CTA() {
                           transition: "color 0.2s",
                           cursor: "pointer",
                         }}
-                        onMouseEnter={(e) =>
-                          (e.currentTarget.style.color = "#1e293b")
-                        }
-                        onMouseLeave={(e) =>
-                          (e.currentTarget.style.color = "#64748b")
-                        }
+                        onMouseEnter={(e) => (e.currentTarget.style.color = "#1e293b")}
+                        onMouseLeave={(e) => (e.currentTarget.style.color = "#64748b")}
                       >
                         {link.label}
                       </a>
@@ -401,12 +385,8 @@ export function CTA() {
                     textDecoration: "none",
                     transition: "color 0.2s",
                   }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = "#1e293b")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "#64748b")
-                  }
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "#1e293b")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "#64748b")}
                 >
                   {item}
                 </a>
@@ -415,6 +395,31 @@ export function CTA() {
           </div>
         </div>
       </footer>
+
+      <style>{`
+        .footer-grid {
+          display: grid;
+          grid-template-columns: 1.5fr 1fr 1fr 1fr;
+          gap: 3rem;
+          margin-bottom: 4rem;
+        }
+
+        /* Tablet */
+        @media (max-width: 1024px) {
+          .footer-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+          }
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+          .footer-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 1.75rem;
+          }
+        }
+      `}</style>
 
       <ShopModal isOpen={shopOpen} onClose={() => setShopOpen(false)} />
     </>

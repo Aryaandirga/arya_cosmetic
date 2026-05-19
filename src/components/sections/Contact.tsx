@@ -91,13 +91,10 @@ export function Contact() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Rate limiting
     const now = Date.now();
     if (now - lastSubmitRef.current < 30000) {
       const sisa = Math.ceil((30000 - (now - lastSubmitRef.current)) / 1000);
-      setErrors({
-        submit: `Mohon tunggu ${sisa} detik sebelum mengirim lagi.`,
-      });
+      setErrors({ submit: `Mohon tunggu ${sisa} detik sebelum mengirim lagi.` });
       return;
     }
 
@@ -214,13 +211,13 @@ export function Contact() {
         style={{
           maxWidth: "1100px",
           margin: "0 auto",
-          padding: "0 2rem",
+          padding: "0 1.5rem",
           position: "relative",
           zIndex: 1,
         }}
       >
         {/* Header */}
-        <div ref={headRef} style={{ marginBottom: "4rem" }}>
+        <div ref={headRef} style={{ marginBottom: "3.5rem" }}>
           <span
             style={{
               fontSize: "0.7rem",
@@ -250,14 +247,7 @@ export function Contact() {
         </div>
 
         {/* 2 kolom */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1.2fr 1fr",
-            gap: "4rem",
-            alignItems: "start",
-          }}
-        >
+        <div className="contact-grid">
           {/* Form */}
           <div
             ref={formRef}
@@ -298,48 +288,21 @@ export function Contact() {
                     />
                   </svg>
                 </div>
-                <h3
-                  style={{
-                    fontSize: "1.2rem",
-                    fontWeight: 700,
-                    color: "#1e293b",
-                    margin: "0 0 0.5rem",
-                  }}
-                >
+                <h3 style={{ fontSize: "1.2rem", fontWeight: 700, color: "#1e293b", margin: "0 0 0.5rem" }}>
                   Pesan Terkirim!
                 </h3>
-                <p
-                  style={{ fontSize: "0.875rem", color: "#64748b", margin: 0 }}
-                >
+                <p style={{ fontSize: "0.875rem", color: "#64748b", margin: 0 }}>
                   WhatsApp kami akan segera membalas pesanmu.
                 </p>
               </motion.div>
             ) : (
               <form
                 onSubmit={handleSubmit}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "1rem",
-                }}
+                style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
               >
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
-                    gap: "1rem",
-                  }}
-                >
+                <div className="form-name-email">
                   <div>
-                    <label
-                      style={{
-                        fontSize: "0.75rem",
-                        fontWeight: 600,
-                        color: "#64748b",
-                        display: "block",
-                        marginBottom: "0.4rem",
-                      }}
-                    >
+                    <label style={{ fontSize: "0.75rem", fontWeight: 600, color: "#64748b", display: "block", marginBottom: "0.4rem" }}>
                       Nama *
                     </label>
                     <input
@@ -347,42 +310,19 @@ export function Contact() {
                       required
                       placeholder="Nama kamu"
                       value={formData.name}
-                      onChange={(e) =>
-                        setFormData({ ...formData, name: e.target.value })
-                      }
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       style={inputStyle}
-                      onFocus={(e) => {
-                        e.target.style.borderColor = "rgba(0,0,0,0.25)";
-                        e.target.style.background = "rgba(255,255,255,0.95)";
-                      }}
-                      onBlur={(e) => {
-                        e.target.style.borderColor = "rgba(0,0,0,0.1)";
-                        e.target.style.background = "rgba(255,255,255,0.7)";
-                      }}
+                      onFocus={(e) => { e.target.style.borderColor = "rgba(0,0,0,0.25)"; e.target.style.background = "rgba(255,255,255,0.95)"; }}
+                      onBlur={(e) => { e.target.style.borderColor = "rgba(0,0,0,0.1)"; e.target.style.background = "rgba(255,255,255,0.7)"; }}
                     />
                     {errors.name && (
-                      <span
-                        style={{
-                          fontSize: "0.72rem",
-                          color: "#ef4444",
-                          marginTop: "0.3rem",
-                          display: "block",
-                        }}
-                      >
+                      <span style={{ fontSize: "0.72rem", color: "#ef4444", marginTop: "0.3rem", display: "block" }}>
                         {errors.name}
                       </span>
                     )}
                   </div>
                   <div>
-                    <label
-                      style={{
-                        fontSize: "0.75rem",
-                        fontWeight: 600,
-                        color: "#64748b",
-                        display: "block",
-                        marginBottom: "0.4rem",
-                      }}
-                    >
+                    <label style={{ fontSize: "0.75rem", fontWeight: 600, color: "#64748b", display: "block", marginBottom: "0.4rem" }}>
                       Email *
                     </label>
                     <input
@@ -390,28 +330,13 @@ export function Contact() {
                       required
                       placeholder="email@kamu.com"
                       value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       style={inputStyle}
-                      onFocus={(e) => {
-                        e.target.style.borderColor = "rgba(0,0,0,0.25)";
-                        e.target.style.background = "rgba(255,255,255,0.95)";
-                      }}
-                      onBlur={(e) => {
-                        e.target.style.borderColor = "rgba(0,0,0,0.1)";
-                        e.target.style.background = "rgba(255,255,255,0.7)";
-                      }}
+                      onFocus={(e) => { e.target.style.borderColor = "rgba(0,0,0,0.25)"; e.target.style.background = "rgba(255,255,255,0.95)"; }}
+                      onBlur={(e) => { e.target.style.borderColor = "rgba(0,0,0,0.1)"; e.target.style.background = "rgba(255,255,255,0.7)"; }}
                     />
                     {errors.email && (
-                      <span
-                        style={{
-                          fontSize: "0.72rem",
-                          color: "#ef4444",
-                          marginTop: "0.3rem",
-                          display: "block",
-                        }}
-                      >
+                      <span style={{ fontSize: "0.72rem", color: "#ef4444", marginTop: "0.3rem", display: "block" }}>
                         {errors.email}
                       </span>
                     )}
@@ -419,46 +344,22 @@ export function Contact() {
                 </div>
 
                 <div>
-                  <label
-                    style={{
-                      fontSize: "0.75rem",
-                      fontWeight: 600,
-                      color: "#64748b",
-                      display: "block",
-                      marginBottom: "0.4rem",
-                    }}
-                  >
+                  <label style={{ fontSize: "0.75rem", fontWeight: 600, color: "#64748b", display: "block", marginBottom: "0.4rem" }}>
                     Perusahaan / Brand
                   </label>
                   <input
                     type="text"
                     placeholder="Nama perusahaan (opsional)"
                     value={formData.company}
-                    onChange={(e) =>
-                      setFormData({ ...formData, company: e.target.value })
-                    }
+                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                     style={inputStyle}
-                    onFocus={(e) => {
-                      e.target.style.borderColor = "rgba(0,0,0,0.25)";
-                      e.target.style.background = "rgba(255,255,255,0.95)";
-                    }}
-                    onBlur={(e) => {
-                      e.target.style.borderColor = "rgba(0,0,0,0.1)";
-                      e.target.style.background = "rgba(255,255,255,0.7)";
-                    }}
+                    onFocus={(e) => { e.target.style.borderColor = "rgba(0,0,0,0.25)"; e.target.style.background = "rgba(255,255,255,0.95)"; }}
+                    onBlur={(e) => { e.target.style.borderColor = "rgba(0,0,0,0.1)"; e.target.style.background = "rgba(255,255,255,0.7)"; }}
                   />
                 </div>
 
                 <div>
-                  <label
-                    style={{
-                      fontSize: "0.75rem",
-                      fontWeight: 600,
-                      color: "#64748b",
-                      display: "block",
-                      marginBottom: "0.4rem",
-                    }}
-                  >
+                  <label style={{ fontSize: "0.75rem", fontWeight: 600, color: "#64748b", display: "block", marginBottom: "0.4rem" }}>
                     Pesan *
                   </label>
                   <textarea
@@ -466,28 +367,13 @@ export function Contact() {
                     rows={5}
                     placeholder="Ceritakan tentang kebutuhanmu atau ide kolaborasi..."
                     value={formData.message}
-                    onChange={(e) =>
-                      setFormData({ ...formData, message: e.target.value })
-                    }
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     style={{ ...inputStyle, resize: "none", lineHeight: 1.6 }}
-                    onFocus={(e) => {
-                      e.target.style.borderColor = "rgba(0,0,0,0.25)";
-                      e.target.style.background = "rgba(255,255,255,0.95)";
-                    }}
-                    onBlur={(e) => {
-                      e.target.style.borderColor = "rgba(0,0,0,0.1)";
-                      e.target.style.background = "rgba(255,255,255,0.7)";
-                    }}
+                    onFocus={(e) => { e.target.style.borderColor = "rgba(0,0,0,0.25)"; e.target.style.background = "rgba(255,255,255,0.95)"; }}
+                    onBlur={(e) => { e.target.style.borderColor = "rgba(0,0,0,0.1)"; e.target.style.background = "rgba(255,255,255,0.7)"; }}
                   />
                   {errors.message && (
-                    <span
-                      style={{
-                        fontSize: "0.72rem",
-                        color: "#ef4444",
-                        marginTop: "0.3rem",
-                        display: "block",
-                      }}
-                    >
+                    <span style={{ fontSize: "0.72rem", color: "#ef4444", marginTop: "0.3rem", display: "block" }}>
                       {errors.message}
                     </span>
                   )}
@@ -518,26 +404,14 @@ export function Contact() {
                   whileTap={isSubmitting ? {} : { scale: 0.98 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                   </svg>
                   {isSubmitting ? "Mengirim..." : "Kirim via WhatsApp"}
                 </motion.button>
 
                 {errors.submit && (
-                  <p
-                    style={{
-                      fontSize: "0.75rem",
-                      color: "#ef4444",
-                      textAlign: "center",
-                      margin: "0.5rem 0 0",
-                    }}
-                  >
+                  <p style={{ fontSize: "0.75rem", color: "#ef4444", textAlign: "center", margin: "0.5rem 0 0" }}>
                     {errors.submit}
                   </p>
                 )}
@@ -551,24 +425,10 @@ export function Contact() {
             style={{ display: "flex", flexDirection: "column", gap: "2rem" }}
           >
             <div>
-              <h3
-                style={{
-                  fontSize: "1.2rem",
-                  fontWeight: 700,
-                  color: "#1e293b",
-                  margin: "0 0 0.75rem",
-                }}
-              >
+              <h3 style={{ fontSize: "1.2rem", fontWeight: 700, color: "#1e293b", margin: "0 0 0.75rem" }}>
                 Tertarik berkolaborasi?
               </h3>
-              <p
-                style={{
-                  fontSize: "0.9rem",
-                  color: "#64748b",
-                  lineHeight: 1.75,
-                  margin: 0,
-                }}
-              >
+              <p style={{ fontSize: "0.9rem", color: "#64748b", lineHeight: 1.75, margin: 0 }}>
                 Kami terbuka untuk kerjasama distribusi, reseller, brand
                 ambassador, hingga kolaborasi konten. Hubungi kami dan tim kami
                 akan merespons dalam 1×24 jam.
@@ -610,24 +470,10 @@ export function Contact() {
                   {contact.icon}
                 </div>
                 <div>
-                  <p
-                    style={{
-                      fontSize: "0.7rem",
-                      color: "#94a3b8",
-                      margin: "0 0 0.2rem",
-                      fontWeight: 500,
-                    }}
-                  >
+                  <p style={{ fontSize: "0.7rem", color: "#94a3b8", margin: "0 0 0.2rem", fontWeight: 500 }}>
                     {contact.label}
                   </p>
-                  <p
-                    style={{
-                      fontSize: "0.9rem",
-                      color: "#1e293b",
-                      margin: 0,
-                      fontWeight: 600,
-                    }}
-                  >
+                  <p style={{ fontSize: "0.9rem", color: "#1e293b", margin: 0, fontWeight: 600 }}>
                     {contact.value}
                   </p>
                 </div>
@@ -661,28 +507,46 @@ export function Contact() {
                 width: "fit-content",
               }}
             >
-              <div
-                style={{
-                  width: "6px",
-                  height: "6px",
-                  borderRadius: "9999px",
-                  background: "#22c55e",
-                  flexShrink: 0,
-                }}
-              />
-              <span
-                style={{
-                  fontSize: "0.75rem",
-                  color: "#64748b",
-                  fontWeight: 500,
-                }}
-              >
+              <div style={{ width: "6px", height: "6px", borderRadius: "9999px", background: "#22c55e", flexShrink: 0 }} />
+              <span style={{ fontSize: "0.75rem", color: "#64748b", fontWeight: 500 }}>
                 Respon dalam 1×24 jam
               </span>
             </div>
           </div>
         </div>
       </div>
+
+      <style>{`
+        .contact-grid {
+          display: grid;
+          grid-template-columns: 1.2fr 1fr;
+          gap: 4rem;
+          align-items: start;
+        }
+        .form-name-email {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1rem;
+        }
+
+        /* Tablet */
+        @media (max-width: 1024px) {
+          .contact-grid {
+            gap: 2.5rem;
+          }
+        }
+
+        /* Mobile */
+        @media (max-width: 640px) {
+          .contact-grid {
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+          }
+          .form-name-email {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
     </section>
   );
 }

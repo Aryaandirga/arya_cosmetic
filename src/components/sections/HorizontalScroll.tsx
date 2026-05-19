@@ -1,7 +1,7 @@
 // src/components/sections/HorizontalScroll.tsx
 "use client";
-import { useEffect, useRef } from "react";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "@/lib/gsap";
 import Image from "next/image";
 
 const cards = [
@@ -40,13 +40,22 @@ const cards = [
 export function HorizontalScroll() {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return; // mobile pakai vertical scroll biasa
+
     const ctx = gsap.context(() => {
       const track = trackRef.current;
       if (!track) return;
 
-      // Hitung total jarak scroll horizontal
       const getScrollAmount = () => -(track.scrollWidth - window.innerWidth);
 
       const anim = gsap.to(track, {
@@ -67,8 +76,110 @@ export function HorizontalScroll() {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isMobile]);
 
+  /* ── Mobile: vertical grid layout ── */
+  if (isMobile) {
+    return (
+      <section
+        id="collection"
+        style={{
+          background: "var(--brand-neutral)",
+          padding: "4rem 0",
+        }}
+      >
+        <div style={{ maxWidth: "600px", margin: "0 auto", padding: "0 1.25rem" }}>
+          <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
+            <span
+              style={{
+                fontSize: "0.7rem",
+                letterSpacing: "0.35em",
+                color: "#94a3b8",
+                textTransform: "uppercase",
+              }}
+            >
+              Our Collection
+            </span>
+          </div>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            {cards.map((card, i) => (
+              <div
+                key={i}
+                style={{
+                  width: "100%",
+                  height: "56vw",
+                  maxHeight: "280px",
+                  borderRadius: "1.25rem",
+                  background: card.color,
+                  position: "relative",
+                  overflow: "hidden",
+                  border: "1px solid rgba(0,0,0,0.06)",
+                  boxShadow: "0 4px 24px rgba(0,0,0,0.06)",
+                }}
+              >
+                <Image
+                  src={card.image}
+                  alt={card.label}
+                  fill
+                  sizes="100vw"
+                  style={{ objectFit: "cover", objectPosition: "center" }}
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    height: "50%",
+                    background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%)",
+                    zIndex: 1,
+                  }}
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    padding: "1.25rem 1.5rem",
+                    zIndex: 2,
+                  }}
+                >
+                  <span
+                    style={{
+                      display: "block",
+                      fontSize: "0.6rem",
+                      letterSpacing: "0.3em",
+                      textTransform: "uppercase",
+                      color: "rgba(255,255,255,0.7)",
+                      marginBottom: "0.25rem",
+                    }}
+                  >
+                    {card.sub}
+                  </span>
+                  <h3
+                    style={{
+                      fontSize: "1.3rem",
+                      fontWeight: 800,
+                      color: "#ffffff",
+                      margin: 0,
+                      lineHeight: 1.1,
+                      letterSpacing: "-0.02em",
+                    }}
+                  >
+                    {card.label}
+                  </h3>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  /* ── Desktop/Tablet: horizontal scroll ── */
   return (
     <section
       ref={sectionRef}
@@ -130,19 +241,13 @@ export function HorizontalScroll() {
               boxShadow: "0 4px 32px rgba(0,0,0,0.06)",
             }}
           >
-            {/* Image full bleed */}
             <Image
               src={card.image}
               alt={card.label}
               fill
               sizes="42vw"
-              style={{
-                objectFit: "cover",
-                objectPosition: "center",
-              }}
+              style={{ objectFit: "cover", objectPosition: "center" }}
             />
-
-            {/* Overlay gradient bawah */}
             <div
               style={{
                 position: "absolute",
@@ -150,14 +255,11 @@ export function HorizontalScroll() {
                 left: 0,
                 right: 0,
                 height: "45%",
-                background:
-                  "linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 100%)",
+                background: "linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 100%)",
                 zIndex: 1,
                 pointerEvents: "none",
               }}
             />
-
-            {/* Text */}
             <div
               style={{
                 position: "absolute",

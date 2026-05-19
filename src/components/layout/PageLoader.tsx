@@ -39,25 +39,56 @@ export function PageLoader() {
   return (
     <div
       ref={loaderRef}
-      className="fixed inset-0 z-9999 flex flex-col items-center justify-center"
       style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 9999,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
         background: "var(--brand-neutral)",
         clipPath: "inset(0 0 0 0)",
+        padding: "2rem",
       }}
     >
-      <div ref={textRef} className="text-center">
-        <p className="text-6xl md:text-7xl font-bold tracking-tight text-slate-800">
+      <div ref={textRef} style={{ textAlign: "center" }}>
+        <p
+          style={{
+            fontSize: "clamp(2.5rem, 10vw, 4.5rem)",
+            fontWeight: 700,
+            letterSpacing: "-0.04em",
+            color: "#1e293b",
+            margin: 0,
+            lineHeight: 1,
+          }}
+        >
           hydralune
         </p>
-        <p className="mt-3 text-xs tracking-[0.5em] text-slate-400 uppercase">
+        {/* Gap yang cukup antara judul dan subtitle */}
+        <p
+          style={{
+            marginTop: "1rem",
+            fontSize: "0.7rem",
+            letterSpacing: "0.5em",
+            color: "#94a3b8",
+            textTransform: "uppercase",
+          }}
+        >
           pure hydration
         </p>
       </div>
-      {/* Loading line */}
+
+      {/* Loading line — jarak dari teks */}
       <div
         ref={lineRef}
-        className="mt-10 w-16 h-px origin-left"
-        style={{ background: "rgba(0,0,0,0.2)" }}
+        style={{
+          marginTop: "2.5rem",
+          width: "64px",
+          height: "1px",
+          background: "rgba(0,0,0,0.2)",
+          transformOrigin: "left center",
+        }}
       />
     </div>
   );

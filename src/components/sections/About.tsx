@@ -1,7 +1,7 @@
 // src/components/sections/About.tsx
 "use client";
 import { useEffect, useRef } from "react";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -9,7 +9,6 @@ export function About() {
   const sectionRef = useRef<HTMLElement>(null);
   const img1Ref = useRef<HTMLDivElement>(null);
   const img2Ref = useRef<HTMLDivElement>(null);
-  const img3Ref = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -30,15 +29,6 @@ export function About() {
           start: "top bottom",
           end: "bottom top",
           scrub: 1.8,
-        },
-      });
-      gsap.to(img3Ref.current, {
-        y: "-8%",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 0.9,
         },
       });
       gsap.from(textRef.current?.children ?? [], {
@@ -64,21 +54,10 @@ export function About() {
         background: "var(--brand-primary)",
       }}
     >
-      {/* Inner wrapper */}
-      <div
-        style={{
-          maxWidth: "1100px",
-          margin: "0 auto",
-          padding: "0 2rem",
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "5rem",
-          alignItems: "center",
-        }}
-      >
+      <div className="about-inner">
         {/* Image stack */}
-        <div style={{ position: "relative", height: "520px" }}>
-          {/* Layer 1 — background kiri atas */}
+        <div className="about-images">
+          {/* Layer 1 — kiri atas */}
           <div
             ref={img1Ref}
             style={{
@@ -96,12 +75,12 @@ export function About() {
               src="/images/about/about2.jpg"
               alt="Hydralune story"
               fill
-              sizes="30vw"
+              sizes="(max-width: 768px) 60vw, 30vw"
               style={{ objectFit: "cover", objectPosition: "center" }}
             />
           </div>
 
-          {/* Layer 2 — foreground kanan bawah */}
+          {/* Layer 2 — kanan bawah */}
           <div
             ref={img2Ref}
             style={{
@@ -119,7 +98,7 @@ export function About() {
               src="/images/about/about1.jpg"
               alt="Hydralune intention"
               fill
-              sizes="30vw"
+              sizes="(max-width: 768px) 60vw, 30vw"
               style={{ objectFit: "cover", objectPosition: "center" }}
             />
           </div>
@@ -165,6 +144,7 @@ export function About() {
             </p>
           </motion.div>
         </div>
+
         {/* Text */}
         <div
           ref={textRef}
@@ -249,6 +229,43 @@ export function About() {
           </motion.a>
         </div>
       </div>
+
+      <style>{`
+        .about-inner {
+          max-width: 1100px;
+          margin: 0 auto;
+          padding: 0 2rem;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 5rem;
+          align-items: center;
+        }
+        .about-images {
+          position: relative;
+          height: 520px;
+        }
+
+        /* Tablet */
+        @media (max-width: 1024px) {
+          .about-inner {
+            gap: 3rem;
+          }
+          .about-images {
+            height: 400px;
+          }
+        }
+
+        /* Mobile */
+        @media (max-width: 640px) {
+          .about-inner {
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+          }
+          .about-images {
+            height: 320px;
+          }
+        }
+      `}</style>
     </section>
   );
 }

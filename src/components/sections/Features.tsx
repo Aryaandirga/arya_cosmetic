@@ -76,10 +76,9 @@ export function Features() {
       id="features"
       style={{ padding: "6rem 0", background: "var(--brand-neutral)" }}
     >
-      {/* Wrapper */}
-      <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 2rem" }}>
+      <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 1.5rem" }}>
         {/* Header */}
-        <div ref={headRef} style={{ marginBottom: "4rem", maxWidth: "520px" }}>
+        <div ref={headRef} style={{ marginBottom: "3.5rem", maxWidth: "520px" }}>
           <span
             style={{
               fontSize: "0.7rem",
@@ -118,14 +117,7 @@ export function Features() {
         </div>
 
         {/* Cards grid */}
-        <div
-          ref={cardsRef}
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "1.25rem",
-          }}
-        >
+        <div ref={cardsRef} className="features-grid">
           {features.map((f) => (
             <motion.div
               key={f.title}
@@ -170,6 +162,26 @@ export function Features() {
           ))}
         </div>
       </div>
+
+      <style>{`
+        .features-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1.25rem;
+        }
+        /* Tablet */
+        @media (max-width: 1024px) {
+          .features-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+        /* Mobile */
+        @media (max-width: 480px) {
+          .features-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
     </section>
   );
 }

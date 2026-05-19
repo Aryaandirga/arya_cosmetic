@@ -1,7 +1,7 @@
 // src/components/sections/Timeline.tsx
 "use client";
 import { useEffect, useRef } from "react";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
 import { motion } from "framer-motion";
 
 const steps = [
@@ -81,8 +81,7 @@ export function Timeline() {
         overflow: "hidden",
       }}
     >
-      {/* Wrapper */}
-      <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 2rem" }}>
+      <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 1.5rem" }}>
         {/* Header */}
         <motion.div
           style={{ textAlign: "center", marginBottom: "5rem" }}
@@ -118,10 +117,8 @@ export function Timeline() {
           </h2>
         </motion.div>
 
-        {/* Timeline track */}
-        <div
-          style={{ position: "relative", maxWidth: "700px", margin: "0 auto" }}
-        >
+        {/* Desktop timeline — left/right alternating */}
+        <div className="timeline-desktop" style={{ position: "relative", maxWidth: "700px", margin: "0 auto" }}>
           {/* Background line */}
           <div
             style={{
@@ -134,7 +131,6 @@ export function Timeline() {
               transform: "translateX(-50%)",
             }}
           />
-
           {/* Progress line */}
           <div
             ref={progressRef}
@@ -150,16 +146,11 @@ export function Timeline() {
             }}
           />
 
-          {/* Items */}
-          <div
-            style={{ display: "flex", flexDirection: "column", gap: "3.5rem" }}
-          >
+          <div style={{ display: "flex", flexDirection: "column", gap: "3.5rem" }}>
             {steps.map((step, i) => (
               <div
                 key={step.year}
-                ref={(el) => {
-                  if (el) itemsRef.current[i] = el;
-                }}
+                ref={(el) => { if (el) itemsRef.current[i] = el; }}
                 style={{
                   display: "grid",
                   gridTemplateColumns: "1fr 24px 1fr",
@@ -171,34 +162,13 @@ export function Timeline() {
                 <div style={{ paddingRight: "2.5rem", textAlign: "right" }}>
                   {step.side === "left" && (
                     <>
-                      <span
-                        style={{
-                          fontSize: "0.7rem",
-                          letterSpacing: "0.25em",
-                          color: "#94a3b8",
-                          textTransform: "uppercase",
-                        }}
-                      >
+                      <span style={{ fontSize: "0.7rem", letterSpacing: "0.25em", color: "#94a3b8", textTransform: "uppercase" }}>
                         {step.year}
                       </span>
-                      <h3
-                        style={{
-                          fontSize: "1.25rem",
-                          fontWeight: 700,
-                          color: "#1e293b",
-                          margin: "0.25rem 0",
-                        }}
-                      >
+                      <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "#1e293b", margin: "0.25rem 0" }}>
                         {step.title}
                       </h3>
-                      <p
-                        style={{
-                          fontSize: "0.875rem",
-                          color: "#64748b",
-                          lineHeight: 1.65,
-                          margin: 0,
-                        }}
-                      >
+                      <p style={{ fontSize: "0.875rem", color: "#64748b", lineHeight: 1.65, margin: 0 }}>
                         {step.desc}
                       </p>
                     </>
@@ -206,17 +176,9 @@ export function Timeline() {
                 </div>
 
                 {/* Dot */}
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    paddingTop: "6px",
-                  }}
-                >
+                <div style={{ display: "flex", justifyContent: "center", paddingTop: "6px" }}>
                   <div
-                    ref={(el) => {
-                      if (el) dotsRef.current[i] = el;
-                    }}
+                    ref={(el) => { if (el) dotsRef.current[i] = el; }}
                     style={{
                       width: "12px",
                       height: "12px",
@@ -233,34 +195,13 @@ export function Timeline() {
                 <div style={{ paddingLeft: "2.5rem" }}>
                   {step.side === "right" && (
                     <>
-                      <span
-                        style={{
-                          fontSize: "0.7rem",
-                          letterSpacing: "0.25em",
-                          color: "#94a3b8",
-                          textTransform: "uppercase",
-                        }}
-                      >
+                      <span style={{ fontSize: "0.7rem", letterSpacing: "0.25em", color: "#94a3b8", textTransform: "uppercase" }}>
                         {step.year}
                       </span>
-                      <h3
-                        style={{
-                          fontSize: "1.25rem",
-                          fontWeight: 700,
-                          color: "#1e293b",
-                          margin: "0.25rem 0",
-                        }}
-                      >
+                      <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "#1e293b", margin: "0.25rem 0" }}>
                         {step.title}
                       </h3>
-                      <p
-                        style={{
-                          fontSize: "0.875rem",
-                          color: "#64748b",
-                          lineHeight: 1.65,
-                          margin: 0,
-                        }}
-                      >
+                      <p style={{ fontSize: "0.875rem", color: "#64748b", lineHeight: 1.65, margin: 0 }}>
                         {step.desc}
                       </p>
                     </>
@@ -270,7 +211,72 @@ export function Timeline() {
             ))}
           </div>
         </div>
+
+        {/* Mobile timeline — single column dengan garis kiri */}
+        <div className="timeline-mobile" style={{ position: "relative", maxWidth: "480px", margin: "0 auto" }}>
+          {/* Vertical line kiri */}
+          <div
+            style={{
+              position: "absolute",
+              left: "10px",
+              top: 0,
+              bottom: 0,
+              width: "1px",
+              background: "rgba(0,0,0,0.1)",
+            }}
+          />
+
+          <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
+            {steps.map((step, i) => (
+              <motion.div
+                key={step.year}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                style={{ display: "flex", gap: "1.5rem", alignItems: "flex-start" }}
+              >
+                {/* Dot */}
+                <div style={{ flexShrink: 0, paddingTop: "4px", position: "relative", zIndex: 1 }}>
+                  <div
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      borderRadius: "9999px",
+                      background: "#1e293b",
+                      border: "3px solid white",
+                      boxShadow: "0 0 0 3px rgba(0,0,0,0.08)",
+                    }}
+                  />
+                </div>
+
+                {/* Content */}
+                <div style={{ paddingBottom: "0.5rem" }}>
+                  <span style={{ fontSize: "0.65rem", letterSpacing: "0.25em", color: "#94a3b8", textTransform: "uppercase" }}>
+                    {step.year}
+                  </span>
+                  <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "#1e293b", margin: "0.2rem 0 0.4rem" }}>
+                    {step.title}
+                  </h3>
+                  <p style={{ fontSize: "0.875rem", color: "#64748b", lineHeight: 1.65, margin: 0 }}>
+                    {step.desc}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </div>
+
+      <style>{`
+        .timeline-mobile { display: none; }
+        .timeline-desktop { display: block; }
+
+        @media (max-width: 640px) {
+          .timeline-desktop { display: none; }
+          .timeline-mobile { display: block; }
+        }
+      `}</style>
     </section>
   );
 }
