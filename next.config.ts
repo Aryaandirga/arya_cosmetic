@@ -23,10 +23,16 @@ const ContentSecurityPolicy = [
 const nextConfig: NextConfig = {
   poweredByHeader: false,
 
+  // Static export untuk Cloudflare Pages
+  output: "export",
+  trailingSlash: true,
+
   images: {
     formats: ["image/avif", "image/webp"],
-    // Tambah domain kalau pakai gambar eksternal
     remotePatterns: [],
+    // Static export tidak support Next.js Image Optimization
+    // gambar tetap tampil tapi tanpa optimasi server-side
+    unoptimized: true,
   },
 
   async headers() {
