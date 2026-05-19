@@ -1,12 +1,9 @@
 /* src/app/globals.css */
 
-/* 1. @import HARUS paling atas */
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap");
-
-/* 2. Tailwind v4 — pakai @import "tailwindcss" bukan @tailwind directives */
+/* 1. Tailwind v4 — pakai @import "tailwindcss" bukan @tailwind directives */
 @import "tailwindcss";
 
-/* 3. Tailwind v4 — custom theme pakai @theme bukan theme.extend */
+/* 2. Tailwind v4 — custom theme pakai @theme bukan theme.extend */
 @theme {
   --font-jakarta: "Plus Jakarta Sans", sans-serif;
 
@@ -23,7 +20,7 @@
   --animate-page-wipe: pageWipe 1.2s cubic-bezier(0.76, 0, 0.24, 1) forwards;
 }
 
-/* 4. Keyframes tetap di luar @theme */
+/* 3. Keyframes tetap di luar @theme */
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -44,7 +41,7 @@
   }
 }
 
-/* 5. CSS variables global */
+/* 4. CSS variables global */
 :root {
   --brand-primary: #d6ecff;
   --brand-secondary: #fadadd;
@@ -53,7 +50,7 @@
   --font-main: "Plus Jakarta Sans", sans-serif;
 }
 
-/* 6. Base styles */
+/* 5. Base styles */
 *,
 *::before,
 *::after {
@@ -70,7 +67,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* 7. Lenis smooth scroll */
+/* 6. Lenis smooth scroll */
 html.lenis,
 html.lenis body {
   height: auto;

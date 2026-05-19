@@ -1,7 +1,17 @@
 import type { Metadata } from "next";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { PageLoader } from "@/components/layout/PageLoader";
 import { Navbar } from "@/components/layout/Navbar";
+
+// Font di-host sendiri oleh Next.js — tidak ada request ke fonts.googleapis.com
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  style: ["normal", "italic"],
+  variable: "--font-main",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Hydralune — Pure Hydration",
@@ -71,7 +81,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id">
+    <html lang="id" className={plusJakartaSans.variable}>
       <body>
         <PageLoader />
         <Navbar />
